@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Contacts</title>
+</head>
+<body>
+    <h1>My Contact Directory</h1>
+    <hr>
+
+    <ul>
+        <!-- This is Django Template Language (DTL). It lets us write Python-like loops inside HTML! -->
+        {% for contact in contacts %}
+            <li>
+                <strong>{{ contact.first_name }} {{ contact.last_name }}</strong>
+                - Phone: {{ contact.phone_number }}
+            </li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
