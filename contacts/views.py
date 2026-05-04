@@ -1,22 +1,52 @@
-from django.http import JsonResponse
-from django.shortcuts import render  # <--- Added this new tool here!
+from django.shortcuts import render
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from .models import Contact
+from .serializers import ContactSerializer
 
+# --- 1. YOUR GENERAL API VIEW (List everyone or Add new) ---
+@api_view(['GET', 'POST'])
+def contact_api(request):
+    if request.method == 'GET':
+        contacts = Contact.objects.all()
+        serializer = ContactSerializer(contacts, many=True)
+        return Response(serializer.data)
 
-# --- EXISTING JSON API (Safe and untouched) ---
-def all_contacts(request):
-    # Query the database for all contacts
-    contacts_query = Contact.objects.all().values('first_name', 'last_name', 'phone_number')
+    if request.method == 'POST':
+        serializer = ContactSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
 
-    # Convert the query to a standard Python list and send it back as JSON
-    contacts_list = list(contacts_query)
-    return JsonResponse({'contacts': contacts_list})
+# --- 2. YOUR NEW SPECIFIC CONTACT API (Read one, Update, or Delete) ---
+@api_view(['GET', 'PUT', 'DELETE'])
+def contact_detail_api(request, pk):
+    # First, try to find the specific person using their ID
+    try:
+        contact = Contact.objects.get(pk=pk)
+    except Contact.DoesNotExist:
+        return Response({'error': 'Contact not found'}, status=404)
 
+    # READ: If they just want to see this specific person's details
+    if request.method == 'GET':
+        serializer = ContactSerializer(contact)
+        return Response(serializer.data)
 
-# --- BRAND NEW HTML VIEW (Added to the bottom) ---
+    # UPDATE: If they are sending new data to change the details
+    if request.method == 'PUT':
+        serializer = ContactSerializer(contact, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
+
+    # DELETE: If they want to wipe this person from the database
+    if request.method == 'DELETE':
+        contact.delete()
+        return Response({'message': 'Contact deleted successfully'}, status=204)
+
+# --- 3. YOUR HTML VIEW (Safe and untouched) ---
 def html_contact_list(request):
-    # 1. Fetch all contacts from the database
     all_my_contacts = Contact.objects.all()
-
-    # 2. Render the HTML file and pass the database records into it
     return render(request, 'contact_list.html', {'contacts': all_my_contacts})
