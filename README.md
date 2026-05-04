@@ -6,7 +6,7 @@ Recent Updates: Upgraded to Django Rest Framework (DRF) 😇
 I have officially upgraded this backend infrastructure from basic JSON responses to a fully functional, industry-standard **RESTful API** using the Django Rest Framework.
 
 Key Features Added:
-Full CRUD Functionality:
+Full CRUD Functionality
   * `GET`: Retrieve the entire contact directory or a specific person.
   * `POST`: Securely add new contacts into the SQL database.
   * `PUT`: Update a specific contact's details using their Primary Key (ID).
