@@ -4,4 +4,4 @@ from .models import Contact
 class ContactSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contact
-        fields = '__all__'  # This elegantly grabs every column automatically
+        fields = '__all__'  # Grabs every column automatically

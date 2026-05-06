@@ -3,9 +3,12 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Contact
 from .serializers import ContactSerializer
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 
-# --- 1. YOUR GENERAL API VIEW (List everyone or Add new) ---
+# GENERAL API VIEW (List everyone or Add new) ---
 @api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
 def contact_api(request):
     if request.method == 'GET':
         contacts = Contact.objects.all()
@@ -19,8 +22,9 @@ def contact_api(request):
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
 
-# --- 2. YOUR NEW SPECIFIC CONTACT API (Read one, Update, or Delete) ---
+# SPECIFIC CONTACT API (Read one, Update, or Delete) ---
 @api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
 def contact_detail_api(request, pk):
     # First, try to find the specific person using their ID
     try:
