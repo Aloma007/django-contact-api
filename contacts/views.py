@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -5,15 +6,36 @@ from .models import Contact
 from .serializers import ContactSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.pagination import PageNumberPagination
+
 
 # GENERAL API VIEW (List everyone or Add new) ---
 @api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated])
+#@permission_classes([IsAuthenticated])
 def contact_api(request):
     if request.method == 'GET':
+        # 1. Grab everyone by default
         contacts = Contact.objects.all()
-        serializer = ContactSerializer(contacts, many=True)
-        return Response(serializer.data)
+
+        # --- NEW SEARCH & FILTERING LOGIC ---
+        # 2. Check if the frontend sent a search word
+        search_query = request.query_params.get('search', None)
+
+        if search_query is not None:
+            # 3. If they did, filter the database.
+            # We use Q objects to search BOTH first_name and last_name!
+            contacts = contacts.filter(
+                Q(first_name__icontains=search_query) |
+                Q(last_name__icontains=search_query)
+            )
+
+        # --- TRAFFIC CONTROL (Unchanged) ---
+        paginator = PageNumberPagination()
+        paginator.page_size = 2
+        paginated_contacts = paginator.paginate_queryset(contacts, request)
+
+        serializer = ContactSerializer(paginated_contacts, many=True)
+        return paginator.get_paginated_response(serializer.data)
 
     if request.method == 'POST':
         serializer = ContactSerializer(data=request.data)

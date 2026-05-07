@@ -102,11 +102,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# --- DRF SECURITY SETTINGS ---
+# DRF SECURITY & TRAFFIC SETTINGS
 REST_FRAMEWORK = {
+    # 1. The Security Bouncer
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+
+    # 2. The New Traffic Controller
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 2,
 }
 
 # Internationalization
