@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'drf_spectacular',
     'contacts',
 ]
 
@@ -112,6 +113,18 @@ REST_FRAMEWORK = {
     # 2. The New Traffic Controller
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 2,
+
+    # 3. SWAGGER SCHEMA ENGINE
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+
+# SWAGGER DOCUMENTATION SETTINGS
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Contact Management API',
+    'DESCRIPTION': 'A robust backend API handling CRUD, JWT Security, Pagination, and Media Uploads.',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
 }
 
 # Internationalization
