@@ -6,6 +6,7 @@ class Contact(models.Model):
     email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=15)
     created_at = models.DateTimeField(auto_now_add=True)
-
+    # NEW MEDIA FIELD
+    profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

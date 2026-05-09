@@ -1,5 +1,5 @@
 from django.contrib import admin
 from .models import Contact
 
-# This registers your exact database model to the dashboard
+# Register your models here.
 admin.site.register(Contact)

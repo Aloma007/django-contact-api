@@ -34,11 +34,11 @@ def contact_api(request):
         paginator.page_size = 2
         paginated_contacts = paginator.paginate_queryset(contacts, request)
 
-        serializer = ContactSerializer(paginated_contacts, many=True)
+        serializer = ContactSerializer(paginated_contacts, many=True, context={'request': request})
         return paginator.get_paginated_response(serializer.data)
 
     if request.method == 'POST':
-        serializer = ContactSerializer(data=request.data)
+        serializer = ContactSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=201)
