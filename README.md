@@ -3,6 +3,9 @@ Created A Contact API using Django
 <img width="1365" height="411" alt="image" src="https://github.com/user-attachments/assets/7b105475-07be-4c4d-9424-f207461a19a6" />
 <img width="1365" height="628" alt="image" src="https://github.com/user-attachments/assets/89bed049-fb7e-4133-a9ac-51031f587333" />
 <img width="1365" height="672" alt="image" src="https://github.com/user-attachments/assets/e7aff768-7218-45f0-bea4-9e43a7699068" />
+<img width="1365" height="686" alt="image" src="https://github.com/user-attachments/assets/e30016af-f485-4cf6-b1c9-995f8e20d651" />
+<img width="1365" height="632" alt="image" src="https://github.com/user-attachments/assets/053ebfc1-c626-428a-b6af-5ca6e125790f" />
+
 
  
 Recent Updates: Upgraded to Django Rest Framework (DRF) 😇
@@ -33,3 +36,8 @@ How to Authenticate (Testing):
 1. Send a `POST` request with your `username` and `password` to `http://127.0.0.1:8000/api/token/`.
 2. Copy the resulting `access` token.
 3. Attach it to the header of your subsequent requests (or use the DRF ModHeader extension in your browser) to gain access to the data vault.
+
+Traffic Control & Advanced Querying
+To ensure scalability and prevent database overload, I implemented advanced data handling features natively within DRF:
+Pagination: Configured `PageNumberPagination` to serve database records in controlled chunks, automatically generating `next` and `previous` endpoints for seamless frontend integration.
+Dynamic Search & Filtering: Engineered custom query parameters (`?search=`) utilizing Django's `Q()` objects to perform case-insensitive filtering across multiple database columns simultaneously.
