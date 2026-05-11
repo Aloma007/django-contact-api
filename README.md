@@ -8,50 +8,84 @@
 <img width="1331" height="178" alt="image" src="https://github.com/user-attachments/assets/7aa12cb1-8672-4965-86a6-abe43195b051" />
 <img width="1365" height="633" alt="image" src="https://github.com/user-attachments/assets/5891c68a-f46e-4af4-82eb-03c3b7b57c5f" />
 
+📇 SECURE CONTACT MANAGEMENT API
+
+![Python Version](https://img.shields.io/badge/python-3.12-blue.svg)
+![Django Version](https://img.shields.io/badge/django-5.0+-green.svg)
+![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)
+![Deployment](https://img.shields.io/badge/deployed_on-PythonAnywhere-yellow.svg)
+
+Live API Documentation: [Interactive Swagger UI](https://alomacodes.pythonanywhere.com/api/docs/)
+
+ 🫴🏽 PROJECT DESCRIPTION 
+The Secure Contact Management API is a robust, production-ready backend system designed to handle contact data efficiently. Built with Python and the Django REST Framework (DRF), it provides full CRUD (Create, Read, Update, Delete) capabilities alongside advanced architectural features.
+
+*Why use this API?*: It solves the problem of securely managing personal or corporate contacts by implementing enterprise-grade JWT security, preventing database bloat through optimized media file handling (saving only absolute image URLs), and ensuring lightning-fast response times using server-side pagination and dynamic search filtering.
+
+ ✨ KEY FEATURES
+* Authentication: Secured via JSON Web Tokens (SimpleJWT).
+* Media Handling: Configured local storage architecture for profile picture uploads with dynamic absolute URL routing.
+* Traffic Control: Built-in PageNumberPagination to handle massive data payloads.
+* Smart Search: Dynamic filtering using Django `Q()` objects for complex database queries.
+* Auto-Documentation: Open API 3.0 schema generation using `drf-spectacular`.
+
+ ⚙️ PREREQUISITES
+Before installing, ensure you have the following installed on your pc/IDE:
+* Python 3.12+
+* Git
 
 
- 
-Recent Updates: Upgraded to Django Rest Framework (DRF) 😇
-I have officially upgraded this backend infrastructure from basic JSON responses to a fully functional, industry-standard **RESTful API** using the Django Rest Framework.
+ 🚀 INSTALLATION
+1. Clone the repository:
+git clone [https://github.com/Aloma007/django-contact-api.git](https://github.com/Aloma007/django-contact-api.git)
+cd django-contact-api
 
-Key Features Added:
-Full CRUD Functionality
-  * `GET`: Retrieve the entire contact directory or a specific person.
-  * `POST`: Securely add new contacts into the SQL database.
-  * `PUT`: Update a specific contact's details using their Primary Key (ID).
-  * `DELETE`: Permanently remove a specific contact.
-  * Data Serialization: Implemented `ModelSerializer` to automatically and securely translate complex database queries into clean JSON.
-  * Browsable API: Activated DRF's powerful built-in web interface for seamless endpoint testing.
+2. Create and activate a virtual environment:
+# On Windows:
+python -m venv .venv
+.venv\Scripts\activate
+# On macOS/Linux:
+python3 -m venv .venv
+source .venv/bin/activate
 
-This practice backend architecture project taught me the foundation for robust, scalable applications like fintech platforms and mobile backends!! 🔥
+3. Install the required dependencies:
+pip install -r requirements.txt
 
-Security & Authentication (JWT)
-To ensure the integrity of the database, the API has been upgraded with industry-standard security using **JSON Web Tokens (JWT)** via the `djangorestframework-simplejwt` package. 
+4. Run database migrations to set up SQLite:
+python manage.py makemigrations
+python manage.py migrate
 
-All core CRUD endpoints are now strictly locked. Anonymous users are blocked with an `HTTP 401 Unauthorized` response.
+5. Create a superuser account (for the Admin panel):
+python manage.py createsuperuser
 
-Authentication Features Added:
-1. Token Generation: Users can authenticate by sending their credentials to the `/api/token/` endpoint to receive an encrypted `access` (VIP wristband) and `refresh` token.
-2. Token Refreshing: Built a `/api/token/refresh/` endpoint to seamlessly maintain secure sessions without forcing users to re-login.
-3. Endpoint Protection: Implemented DRF's `IsAuthenticated` permission classes across all API views to guarantee that only verified administrators can view, modify, or delete contact data.
+6. Start the local development server:
+python manage.py runserver
 
-How to Authenticate (Testing):
-1. Send a `POST` request with your `username` and `password` to `http://127.0.0.1:8000/api/token/`.
-2. Copy the resulting `access` token.
-3. Attach it to the header of your subsequent requests (or use the DRF ModHeader extension in your browser) to gain access to the data vault.
+💻 BASIC USAGE
+Once your local server is running (http://127.0.0.1:8000), you can interact with the API in two ways:
 
-Traffic Control & Advanced Querying
-To ensure scalability and prevent database overload, I implemented advanced data handling features natively within DRF:
-Pagination: Configured `PageNumberPagination` to serve database records in controlled chunks, automatically generating `next` and `previous` endpoints for seamless frontend integration.
-Dynamic Search & Filtering: Engineered custom query parameters (`?search=`) utilizing Django's `Q()` objects to perform case-insensitive filtering across multiple database columns simultaneously.
+1. Using the Interactive Dashboard (Recommended)
+Navigate to http://127.0.0.1:8000/api/docs/ in your browser. You can view all available endpoints, generate JWT tokens, and test file uploads directly from the Swagger UI.
 
-Media Handling & File Uploads
-Upgraded the database architecture to support dynamic media files (profile pictures) without bloating the SQLite database.
-* Storage Architecture: Configured Django's `MEDIA_ROOT` and `MEDIA_URL` to store image files in a dedicated local directory, keeping the database lightweight by saving only the file paths.
-* Absolute URL Routing: Engineered the `ContactSerializer` to dynamically pass the `request` context, automatically transforming relative media paths into fully clickable, absolute `http://` URLs for seamless frontend integration.
-* Development Serving: Configured the master `urls.py` to correctly route and serve media files during the development phase.
+2. Standard API Requests
+To access secured endpoints, first obtain a token:
+POST /api/token/
+Content-Type: application/json
 
-Automated API Documentation (Swagger)
-To provide a seamless developer experience for frontend integrations, I implemented auto-generated OpenAPI 3.0 documentation:
-* Interactive Dashboard: Integrated `drf-spectacular` to generate a dynamic Swagger UI interface (`/api/docs/`), allowing developers to visually explore, test, and authenticate API endpoints directly from the browser.
-* Schema Generation: Engineered a raw OpenAPI schema endpoint (`/api/schema/`) to serve as the machine-readable blueprint of the entire backend infrastructure.
+{
+  "username": "your_superuser_name",
+  "password": "your_password"
+}
+Include the resulting access token in the headers of your subsequent requests:
+Authorization: Bearer <your_access_token>
+
+🫂 CONTRIBUTING GUIDELINES
+If you would like to contribute to this project 😇:
+1. Fork the repository.
+2. Create a new branch (git checkout -b feature/AmazingFeature).
+3. Commit your changes (git commit -m 'Add some AmazingFeature').
+4. Push to the branch (git push origin feature/AmazingFeature).
+5. Open a Pull Request.
+
+📄 LICENSE
+Distributed under the MIT License. Feel free to use, modify, and distribute this code for personal or commercial projects.
