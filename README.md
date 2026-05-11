@@ -17,25 +17,25 @@
 
 Live API Documentation: [Interactive Swagger UI](https://alomacodes.pythonanywhere.com/api/docs/)
 
- 🫴🏽 PROJECT DESCRIPTION 
+ 🫴🏽 PROJECT DESCRIPTION:
 The Secure Contact Management API is a robust, production-ready backend system designed to handle contact data efficiently. Built with Python and the Django REST Framework (DRF), it provides full CRUD (Create, Read, Update, Delete) capabilities alongside advanced architectural features.
 
 *Why use this API?*: It solves the problem of securely managing personal or corporate contacts by implementing enterprise-grade JWT security, preventing database bloat through optimized media file handling (saving only absolute image URLs), and ensuring lightning-fast response times using server-side pagination and dynamic search filtering.
 
- ✨ KEY FEATURES
+ ✨ KEY FEATURES:
 * Authentication: Secured via JSON Web Tokens (SimpleJWT).
 * Media Handling: Configured local storage architecture for profile picture uploads with dynamic absolute URL routing.
 * Traffic Control: Built-in PageNumberPagination to handle massive data payloads.
 * Smart Search: Dynamic filtering using Django `Q()` objects for complex database queries.
 * Auto-Documentation: Open API 3.0 schema generation using `drf-spectacular`.
 
- ⚙️ PREREQUISITES
+ ⚙️ PREREQUISITES:
 Before installing, ensure you have the following installed on your pc/IDE:
 * Python 3.12+
 * Git
 
 
- 🚀 INSTALLATION
+ 🚀 INSTALLATION:
 1. Clone the repository:
 git clone [https://github.com/Aloma007/django-contact-api.git](https://github.com/Aloma007/django-contact-api.git)
 cd django-contact-api
@@ -61,7 +61,7 @@ python manage.py createsuperuser
 6. Start the local development server:
 python manage.py runserver
 
-💻 BASIC USAGE
+💻 BASIC USAGE:
 Once your local server is running (http://127.0.0.1:8000), you can interact with the API in two ways:
 
 1. Using the Interactive Dashboard (Recommended)
@@ -79,7 +79,7 @@ Content-Type: application/json
 Include the resulting access token in the headers of your subsequent requests:
 Authorization: Bearer <your_access_token>
 
-🫂 CONTRIBUTING GUIDELINES
+🫂 CONTRIBUTING GUIDELINES:
 If you would like to contribute to this project 😇:
 1. Fork the repository.
 2. Create a new branch (git checkout -b feature/AmazingFeature).
@@ -87,5 +87,5 @@ If you would like to contribute to this project 😇:
 4. Push to the branch (git push origin feature/AmazingFeature).
 5. Open a Pull Request.
 
-📄 LICENSE
+📄 LICENSE:
 Distributed under the MIT License. Feel free to use, modify, and distribute this code for personal or commercial projects.
