@@ -6,6 +6,7 @@
 <img width="1365" height="686" alt="image" src="https://github.com/user-attachments/assets/e30016af-f485-4cf6-b1c9-995f8e20d651" />
 <img width="1365" height="632" alt="image" src="https://github.com/user-attachments/assets/053ebfc1-c626-428a-b6af-5ca6e125790f" />
 <img width="1331" height="178" alt="image" src="https://github.com/user-attachments/assets/7aa12cb1-8672-4965-86a6-abe43195b051" />
+<img width="1365" height="633" alt="image" src="https://github.com/user-attachments/assets/5891c68a-f46e-4af4-82eb-03c3b7b57c5f" />
 
 
 
@@ -49,3 +50,8 @@ Upgraded the database architecture to support dynamic media files (profile pictu
 * Storage Architecture: Configured Django's `MEDIA_ROOT` and `MEDIA_URL` to store image files in a dedicated local directory, keeping the database lightweight by saving only the file paths.
 * Absolute URL Routing: Engineered the `ContactSerializer` to dynamically pass the `request` context, automatically transforming relative media paths into fully clickable, absolute `http://` URLs for seamless frontend integration.
 * Development Serving: Configured the master `urls.py` to correctly route and serve media files during the development phase.
+
+Automated API Documentation (Swagger)
+To provide a seamless developer experience for frontend integrations, I implemented auto-generated OpenAPI 3.0 documentation:
+* Interactive Dashboard: Integrated `drf-spectacular` to generate a dynamic Swagger UI interface (`/api/docs/`), allowing developers to visually explore, test, and authenticate API endpoints directly from the browser.
+* Schema Generation: Engineered a raw OpenAPI schema endpoint (`/api/schema/`) to serve as the machine-readable blueprint of the entire backend infrastructure.
